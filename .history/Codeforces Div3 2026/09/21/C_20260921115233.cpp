@@ -1,0 +1,56 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+int countLeast(string word){
+    int zero = 0;
+    int one = 0;
+    for (char c: word){
+        if (c == '0') zero++;
+        if (c == '1') one++;
+    }
+    return min(one, zero);
+}
+
+int twoPointersSortOperations(string word, int limit){
+    int l = 0, r = word.length();
+    int operations = 0;
+    while(l < r){
+
+        if (l < word.length() - 1){
+            if (word[l] == '1' && word[l+1] == '0'){
+                word[l] = '0';
+                l++;
+                operations++;
+
+            }
+        }
+        if (r > 1){
+            if (word[r] == '0' && word[r-1] == '1'){
+                word[r] = '1';
+                r--;
+                operations++;
+            }
+        }
+        if (operations > limit) return limit;
+
+    }
+    return operations;
+}
+
+
+int main(){
+
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+
+    int n;
+    cin >> n;
+    int m;
+    string word;
+    while (cin >> m){
+        int least = countLeast(word);
+        cout << min(least, twoPointersSortOperations(word, least)) << "\n";
+    }
+}
