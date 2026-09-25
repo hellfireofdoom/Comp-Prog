@@ -36,8 +36,6 @@ int main()
         // + pos to compensate for the missing string
         pos = word.substr(pos).find("GAS") + pos; // find position of next GAS
         
-        
-
         // No more GAS's and empty vowels vector
         if (pos == string::npos)
         {

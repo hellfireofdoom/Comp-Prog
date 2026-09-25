@@ -33,11 +33,8 @@ int main()
     bool moreThanOne = false;
     while (pos < n)
     {   
-        // + pos to compensate for the missing string
         pos = word.substr(pos).find("GAS") + pos; // find position of next GAS
         
-        
-
         // No more GAS's and empty vowels vector
         if (pos == string::npos)
         {
@@ -50,28 +47,29 @@ int main()
                 word[pos - 1] == 'O' || word[pos - 1] == 'U')
             {
                 // if not the same character
-                if (word[pos - 1] == word[pos + 3])
+                if (word[pos - 1] != word[pos + 3])
                 {
-                // if yes, ---AGASA---                
+                    pos += 4;
+                }
+                // if yes, ---AGASA---
+                else
+                {
                     // 3. if GAS are separated  --AGASA--EGASE---, return "+"
                     if (i > 0 && (pos - currPos) > 4 ) {
                         cout << "+";
                         moreThanOne = true;
                         break;
                     }
-                    // Not separated --AGASAGASA--, continue to iterate
+                    // Not separated --AGASAGASA--
                     vowels[i] = word[pos - 1]; // store the vowel in vowels;
                     currPos = pos; // stores latest index
+                    pos += 4;
                     i++;
                 }
-                // advance to next possible GAS position
-                pos += 4;
-            } // by adding this line, made test 12 fail instead of test 15 
-            else{
-                pos+=4;
             }
-                
-            
+            else {
+                pos += 4;
+            }
         }
         // at the very end of word, just break;
         else

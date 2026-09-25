@@ -33,11 +33,8 @@ int main()
     bool moreThanOne = false;
     while (pos < n)
     {   
-        // + pos to compensate for the missing string
         pos = word.substr(pos).find("GAS") + pos; // find position of next GAS
         
-        
-
         // No more GAS's and empty vowels vector
         if (pos == string::npos)
         {
@@ -59,18 +56,14 @@ int main()
                         moreThanOne = true;
                         break;
                     }
-                    // Not separated --AGASAGASA--, continue to iterate
+                    // Not separated --AGASAGASA--
                     vowels[i] = word[pos - 1]; // store the vowel in vowels;
                     currPos = pos; // stores latest index
                     i++;
                 }
-                // advance to next possible GAS position
-                pos += 4;
-            } // by adding this line, made test 12 fail instead of test 15 
-            else{
-                pos+=4;
             }
-                
+            
+                pos += 4;
             
         }
         // at the very end of word, just break;
