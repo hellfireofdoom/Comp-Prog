@@ -1,0 +1,8 @@
+nums [ 1 16 37 37 58 ]
+indices [ 2 1 1 1 1 ]
+nums [ 1 1 1 1 ]
+indices [ 4 1 1 1 ]
+nums [ 37 58 89 ]
+indices [ 1 1 1 ]
+nums [ 16 16 37 ]
+indices [ 2 1 1 ]

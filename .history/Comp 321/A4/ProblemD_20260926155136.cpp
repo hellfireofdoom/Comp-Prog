@@ -99,48 +99,48 @@ void solve()
     int n;
     cin >> n;
     if (n == 2)
-        return; // A 2-coin system with c_1 = 1 is always canonical
-    
-    vector<ll> coins(n);
-    for (int i = 0; i < n; i++)
+        cout << "canonical\n";
+    else
     {
-        cin >> coins[i];
-    }
-    
-    ll biggest = coins[n - 1], sndBiggest = coins[n - 2];
-    const ll T = biggest + sndBiggest;
-
-    vector<int> dp(T, 0);
-    vector<int> greedy(T, 0);
-    int current_coin_idx = 0;
-
-    for (ll v = 1; v < T; v++)
-    {
-        // 1. Calculate DP for optimal change
-        dp[v] = v; // Worst case is using all 1-value coins
-        for (int i = 0; i < n && coins[i] <= v; i++)
+        vector<ll> coins(n);
+        for (int i = 0; i < n; i++)
         {
-            dp[v] = min(dp[v], 1 + dp[v - coins[i]]);
+            cin >> coins[i];
         }
-        
-        // 2. Calculate Greedy change dynamically in O(1)
-        // Move to the next largest coin if it fits into our current value 'v'
-        if (current_coin_idx + 1 < n && coins[current_coin_idx + 1] <= v) 
+        ll biggest = coins[n-1], sndBiggest = coins[n - 2];
+        const ll T = biggest + sndBiggest;
+        vector<vector<ll>> dp(n + 1, vector<ll>(T, INFINITY));
+
+        for (ll i = 1; i <= n; i++)
         {
-            current_coin_idx++;
+            dp[i][0] = 0;
         }
-        
-        // Greedy takes 1 of the largest coin, plus the greedy result of the remainder
-        greedy[v] = 1 + greedy[v - coins[current_coin_idx]];
-        
-        // 3. Compare and terminate early if a counterexample is found
-        if (dp[v] < greedy[v])
+        for (ll i = 1; i <= n; i++)
         {
-            flag = false;
-            return;
+            for (ll v = 1; v < T; v++)
+            {
+                if (coins[i - 1] > v)
+                {
+                    dp[i][v] = dp[i - 1][v];
+                }
+                for (ll k = 1; k * coins[i - 1] <= v; k++)
+                {
+                    dp[i][v] = k + dp[i][v - k * coins[i - 1]];
+                }
+            }
+        }
+        for(ll v = T; v >= 2; v--){
+            for(ll i = 2; i < n; i++){
+                // if there exists an optimal non-greedy solution 
+                if (dp[i][v] < dp[i+1][v]) {
+                    flag = false; 
+                    return;
+                }
+            }
         }
     }
 }
+
 int main()
 {
 #ifndef ONLINE_JUDGE
@@ -150,10 +150,8 @@ int main()
     cin.tie(nullptr);
 
     solve();
-    if (flag)
-        cout << "canonical\n";
-    else
-    {
+    if (flag) cout << "canonical\n";
+    else{
         cout << "non-canonical\n";
     }
 }

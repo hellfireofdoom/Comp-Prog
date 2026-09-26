@@ -43,9 +43,9 @@ template <class T, class V>
 void _print(pair<T, V> p)
 {
     cerr << "{";
-    _print(p.first);
+    _print(p.ff);
     cerr << ",";
-    _print(p.second);
+    _print(p.ss);
     cerr << "}";
 }
 template <class T>
@@ -93,67 +93,69 @@ void _print(map<T, V> v)
     cerr << "]";
 }
 
-bool flag = true;
-void solve()
-{
-    int n;
-    cin >> n;
-    if (n == 2)
-        return; // A 2-coin system with c_1 = 1 is always canonical
-    
-    vector<ll> coins(n);
-    for (int i = 0; i < n; i++)
-    {
-        cin >> coins[i];
-    }
-    
-    ll biggest = coins[n - 1], sndBiggest = coins[n - 2];
-    const ll T = biggest + sndBiggest;
-
-    vector<int> dp(T, 0);
-    vector<int> greedy(T, 0);
-    int current_coin_idx = 0;
-
-    for (ll v = 1; v < T; v++)
-    {
-        // 1. Calculate DP for optimal change
-        dp[v] = v; // Worst case is using all 1-value coins
-        for (int i = 0; i < n && coins[i] <= v; i++)
-        {
-            dp[v] = min(dp[v], 1 + dp[v - coins[i]]);
-        }
-        
-        // 2. Calculate Greedy change dynamically in O(1)
-        // Move to the next largest coin if it fits into our current value 'v'
-        if (current_coin_idx + 1 < n && coins[current_coin_idx + 1] <= v) 
-        {
-            current_coin_idx++;
-        }
-        
-        // Greedy takes 1 of the largest coin, plus the greedy result of the remainder
-        greedy[v] = 1 + greedy[v - coins[current_coin_idx]];
-        
-        // 3. Compare and terminate early if a counterexample is found
-        if (dp[v] < greedy[v])
-        {
-            flag = false;
-            return;
-        }
-    }
-}
-int main()
+signed main()
 {
 #ifndef ONLINE_JUDGE
     freopen("Error.txt", "w", stderr);
 #endif
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-
-    solve();
-    if (flag)
-        cout << "canonical\n";
-    else
-    {
-        cout << "non-canonical\n";
+    // vector<vector<ll>> nums(3, vector<ll>(1001));
+    vector<ll> nums(1001);
+    for(int i = 1; i <= 1000; i++){
+        nums[i] = i;
     }
+
+    for(int k = 0; k < 10; k++){
+
+    for (int i = 1; i <= 1000; i++)
+    {
+
+        int temp = nums[i];
+        int cur = 0;
+
+            while(temp > 0){
+                int digit = temp%10;
+                cur += digit*digit;
+                temp /= 10;
+            }
+            temp = cur;
+            cur = 0;
+            
+        nums[i] = temp;
+        // debug(nums[i]);
+        
+        }
+        // debug(nums[i]);
+    }
+    vector<ll> indices(1001);
+    int cur = 0;
+    for(int i = 2; i <= 1000; i++){
+        if (nums[i] != nums[i-1]){
+            cur++;
+        }
+        indices[cur]++;
+        
+    }
+    int sum = 0;
+    int i = 0;
+    while(indices[i] != 0){
+        sum += (indices[i] * (indices[i]-1))/2;
+    }
+    debug(nums);
+    sort(nums.begin(), nums.end());
+    debug(nums);
+
+
+    
 }
+// for(int i = 1; i <= 1000; i++){
+//         debug(i);
+
+//     if (nums[0][i] == nums[2][i] && nums[0][i] != nums[1][i]) {
+//         vector<ll> cur = vector<ll>{nums[0][i], nums[1][i], nums[2][i]};
+//         debug(cur);
+//     }
+// }
+
+

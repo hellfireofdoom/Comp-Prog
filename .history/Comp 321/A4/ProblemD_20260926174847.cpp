@@ -99,48 +99,47 @@ void solve()
     int n;
     cin >> n;
     if (n == 2)
-        return; // A 2-coin system with c_1 = 1 is always canonical
-    
-    vector<ll> coins(n);
-    for (int i = 0; i < n; i++)
+        return;
+    else
     {
-        cin >> coins[i];
-    }
+        vector<ll> coins(n);
+        for (int i = 0; i < n; i++)
+        {
+            cin >> coins[i];
+        }
+        ll biggest = coins[n - 1], sndBiggest = coins[n - 2];
+        const ll T = biggest + sndBiggest;
+
+        vector<ll> dp(T, T + 1);
+        dp[0] = 0;
+        for (ll v = 1; v < T; v++)
+        {
+            for (int i = 0; i < n && coins[i] <= v; i++)
+            {
+                dp[v] = min(dp[v], 1 + dp[v - coins[i]]);
+            }
+        }
     
-    ll biggest = coins[n - 1], sndBiggest = coins[n - 2];
-    const ll T = biggest + sndBiggest;
-
-    vector<int> dp(T, 0);
-    vector<int> greedy(T, 0);
-    int current_coin_idx = 0;
-
-    for (ll v = 1; v < T; v++)
-    {
-        // 1. Calculate DP for optimal change
-        dp[v] = v; // Worst case is using all 1-value coins
-        for (int i = 0; i < n && coins[i] <= v; i++)
+    // compute greedy and compare
+    for (ll j = 1 ; j < n; j++)
+    {   
+        ll v = coins[j] + coins[j-1] - 1;
+        ll remaining = v;
+        ll greedyCount = 0;
+        for (int i = n - 1; i >= 0 && remaining > 0; i--)
         {
-            dp[v] = min(dp[v], 1 + dp[v - coins[i]]);
+            greedyCount += remaining / coins[i];
+            remaining = remaining % coins[i];
         }
-        
-        // 2. Calculate Greedy change dynamically in O(1)
-        // Move to the next largest coin if it fits into our current value 'v'
-        if (current_coin_idx + 1 < n && coins[current_coin_idx + 1] <= v) 
-        {
-            current_coin_idx++;
-        }
-        
-        // Greedy takes 1 of the largest coin, plus the greedy result of the remainder
-        greedy[v] = 1 + greedy[v - coins[current_coin_idx]];
-        
-        // 3. Compare and terminate early if a counterexample is found
-        if (dp[v] < greedy[v])
+        if (dp[v] < greedyCount)
         {
             flag = false;
             return;
         }
     }
 }
+}
+
 int main()
 {
 #ifndef ONLINE_JUDGE

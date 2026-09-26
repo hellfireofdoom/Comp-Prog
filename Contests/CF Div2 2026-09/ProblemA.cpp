@@ -40,22 +40,21 @@ template <class T> void _print(set <T> v) {cerr << "[ "; for (T i : v) {_print(i
 template <class T> void _print(multiset <T> v) {cerr << "[ "; for (T i : v) {_print(i); cerr << " ";} cerr << "]";}
 template <class T, class V> void _print(map <T, V> v) {cerr << "[ "; for (auto i : v) {_print(i); cerr << " ";} cerr << "]";}
 
-void solve(){
-    
-}
 
-
-int main(){
+signed main(){
     #ifndef ONLINE_JUDGE
         freopen("Error.txt", "w", stderr);
     #endif
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    int t;
+    ll t;
     cin >> t;
     while(t--){
-        solve();
+        ll n, k;
+        cin >> n >> k;
+        ll res = pow(2,n-k+1) + 2*(k-1);
+        cout << fixed << res << "\n";
     }
 
     
