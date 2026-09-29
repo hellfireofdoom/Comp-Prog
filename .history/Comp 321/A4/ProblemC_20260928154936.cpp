@@ -13,7 +13,7 @@ int main(){
         int x, y;
         cin >> x >> y;
         pairs.push_back(pair(x, y));
-        // cout << "Added one element\n";
+        cout << "Added one element\n";
     }
 
     sort(pairs.begin(), pairs.end());
@@ -21,10 +21,9 @@ int main(){
     int numRooms = 1;
     int currLowHighBound = pairs[0].second;
 
-    // cout << "before loop " << n << "\n";
-    for(int i = 1; i < pairs.size(); i++){
+    for(int i = 1; i < n; i++){
         auto const [x, y] = pairs[i];
-        // cout << "x: " << x << " y: " << y << "\n";
+        cout << "x: " << x << " y: " << y << "\n";
         if (x > currLowHighBound){
             numRooms++;
             currLowHighBound = y;
