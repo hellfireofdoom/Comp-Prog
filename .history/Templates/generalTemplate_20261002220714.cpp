@@ -6,7 +6,9 @@
 #include <cmath>
 #include <algorithm>
 
+
 using namespace std;
+
 typedef long long ll;
 typedef unsigned long long ull;
 typedef long double lld;
@@ -17,6 +19,7 @@ typedef long double lld;
 #else
 #define debug(x);
 #endif
+
 
 void _print(ll t) {cerr << t;}
 void _print(int t) {cerr << t;}
@@ -42,6 +45,7 @@ void solve(){
     
 }
 
+
 int main(){
     #ifndef ONLINE_JUDGE
         freopen("Error.txt", "w", stderr);
@@ -54,4 +58,8 @@ int main(){
     while(t--){
         solve();
     }
+
+    
+
+
 }

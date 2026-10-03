@@ -7,9 +7,8 @@ int main(){
   cin >> s;
   string res = "";
   for(int i = 0; i < s.length()-1; i++){
-      res += s[i];
-      res += 'o';
+      res += s[i] + 'o';
   }
-  res += s[s.length()-1];
+  res += res[s.length()-1];
   cout << res << "\n";
 }

@@ -42,6 +42,7 @@ void solve(){
     
 }
 
+
 int main(){
     #ifndef ONLINE_JUDGE
         freopen("Error.txt", "w", stderr);
