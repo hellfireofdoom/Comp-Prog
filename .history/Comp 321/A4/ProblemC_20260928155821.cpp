@@ -21,7 +21,7 @@ int main(){
     int numRooms = 1;
     int currLowHighBound = pairs[0].second;
 
-    // cout << "before loop " << n << "\n";
+    cout << "before loop " << n << "\n";
     for(int i = 1; i < pairs.size(); i++){
         auto const [x, y] = pairs[i];
         // cout << "x: " << x << " y: " << y << "\n";

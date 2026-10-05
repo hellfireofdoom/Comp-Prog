@@ -10,6 +10,6 @@ int main(){
       res += s[i];
       res += 'o';
   }
-  res += s[s.length()-1];
+  res += res[s.length()-1];
   cout << res << "\n";
 }
