@@ -1,0 +1,7 @@
+3 3 592
+"Pride and Predjudice" 432
+"Don Quixote" 863
+"Apple Pie" 1000
+863 "Great Gatsby" 218
+1082 "Crime and Punishment" 545
+10000 "Jppp" 100000
