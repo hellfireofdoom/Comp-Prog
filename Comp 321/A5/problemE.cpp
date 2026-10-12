@@ -15,7 +15,7 @@ struct IncomingBook
     string title;
     ll pages;
 
-    bool operator>(const IncomingBook &other)
+    bool operator>(const IncomingBook &other) const
     {
         return t > other.t;
     }
